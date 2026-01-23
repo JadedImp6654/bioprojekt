@@ -1,147 +1,220 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aufklärung Suchtverhalten</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:#f7f9fc;
-  --card:#ffffff;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --accent:#2563eb;
-  --accent-soft:#e0e7ff;
-}
-* {box-sizing:border-box;margin:0;padding:0;transition:all 0.3s ease}
-body {font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
-header {position:fixed;top:0;width:100%;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;transition:background .3s}
-nav {max-width:1200px;margin:auto;display:flex;justify-content:flex-end;gap:1.5rem;padding:0.8rem 1rem}
-nav a {color:var(--muted);text-decoration:none;font-weight:500;position:relative}
-nav a::after {content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:.3s}
-nav a:hover {color:var(--accent)}
-nav a:hover::after {width:100%}
-.container {max-width:900px;margin:100px auto 80px auto;padding:0 1rem}
-section {display:none;background:var(--card);border-radius:20px;padding:3rem 2.5rem;box-shadow:0 20px 40px rgba(0,0,0,.06);animation:fade .8s ease}
-section.active {display:block}
-@keyframes fade {from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
-h2{font-size:2rem;margin-bottom:1.5rem;color:var(--accent);transition:color .3s}
-h3{margin-top:2.5rem;margin-bottom:.8rem;color:#1e40af;transition:color .3s}
-p{margin-bottom:1rem;color:#374151;transition:color .3s}
-ul{padding-left:1.2rem;margin-bottom:1.2rem}
-li{margin-bottom:.6rem}
-.card{background:var(--accent-soft);border-radius:14px;padding:1.5rem;margin:1.5rem 0;transition:transform .3s,background .3s}
-.card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.15)}
-blockquote{border-left:4px solid var(--accent);padding-left:1rem;color:#1e3a8a;margin:1.5rem 0;transition:color .3s}
-footer{background:#111827;color:#e5e7eb;text-align:center;padding:2rem 1rem;transition:background .3s,color .3s}
-footer p{font-size:.9rem}
-@media(max-width:700px){section{padding:2rem 1.5rem}}
-/* Dark Mode */
-body.dark {--bg:#0f172a;--card:#020617;--text:#ffffff;--muted:#94a3b8;--accent:#60a5fa;--accent-soft:#1e293b}
-body.dark header {background:rgba(2,6,23,.95)}
-body.dark footer {background:#020617}
-.toggle{position:fixed;right:16px;bottom:16px;background:var(--accent);color:#fff;border:none;border-radius:999px;padding:.7rem 1rem;font-size:.9rem;cursor:pointer;box-shadow:0 10px 20px rgba(0,0,0,.25)}
-/* Diagramme */
-.chart{margin:2rem 0}
-.bar{height:32px;background:#c7d2fe;border-radius:999px;margin:1rem 0;position:relative;width:0%;transition:width 1.5s ease, background .3s}
-.bar span{position:absolute;left:12px;top:6px;font-size:.9rem;font-weight:600;color:#1e3a8a;transition:color .3s}
-.bar:hover{background:var(--accent);cursor:pointer}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suchtaufklärung – Information & Hilfe</title>
+  <meta name="description" content="Moderne, statische Website zur Suchtaufklärung mit interaktivem Selbsttest. Informationen zu Alkohol-, Drogen-, Medien- und Glücksspielsucht." />
+  <meta name="author" content="Darian Müller" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6ea8ff;
+      --secondary: #7af0d1;
+      --dark-bg: #0f172a;
+      --light-bg: #f8fafc;
+      --text-dark: #f8fafc;
+      --text-light: #0f172a;
+      --card-dark: rgba(15,23,42,0.85);
+      --card-light: rgba(248,250,252,0.85);
+      --header-dark: rgba(15,23,42,0.9);
+      --header-light: rgba(248,250,252,0.9);
+      --footer-dark: #020617;
+      --footer-light: #e5e7eb;
+      --section-dark: rgba(15,23,42,0.8);
+      --section-light: rgba(248,250,252,0.8);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-dark);
+      line-height: 1.7;
+      font-size: 18px;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--header-dark);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      transition: background 0.3s, color 0.3s;
+    }
+    header h1 { font-size: 1.2rem; font-weight: 700; color: var(--secondary); }
+    nav a { margin-left: 24px; text-decoration: none; color: inherit; font-weight: 400; cursor: pointer; }
+
+    section {
+      display: none;
+      padding: 140px 12% 80px;
+      border-radius: 12px;
+      background: var(--section-dark);
+      color: var(--text-dark);
+      transition: background 0.3s, color 0.3s;
+    }
+    section.active { display: block; }
+
+    h2 { font-size: clamp(2rem, 3vw, 2.4rem); margin-bottom: 20px; }
+    p { max-width: 800px; margin-bottom: 18px; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+    .card { border-radius: 24px; padding: 36px; font-size: 1rem; line-height: 1.6; transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.3s, color 0.3s; background: var(--card-dark); color: var(--text-dark); }
+    .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+
+    .test-question { margin-bottom: 20px; }
+    input[type=range] { width: 100%; }
+    button { padding: 16px 32px; border: none; border-radius: 999px; background: linear-gradient(90deg, var(--primary), var(--secondary)); color: #020617; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 24px; }
+
+    footer { text-align: center; padding: 40px 20px; font-size: 0.9rem; margin-top: 40px; background: var(--footer-dark); color: var(--text-dark); transition: background 0.3s, color 0.3s; }
+
+    #darkModeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1001;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #020617;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  </style>
 </head>
-<body>
-<div id="progress"></div>
+<body data-mode="dark" onload="showPage('start')">
+
 <header>
-<nav>
-<a onclick="show('start')">Start</a>
-<a onclick="show('arten')">Suchtarten</a>
-<a onclick="show('warnsignale')">Warnsignale</a>
-<a onclick="show('selbsttest')">Selbsttest</a>
-<a onclick="show('ausstieg')">Ausstieg</a>
-<a onclick="show('praevention')">Prävention</a>
-<a onclick="show('quellen')">Quellen</a>
-<a onclick="show('handlungsplan')">Handlungsplan</a>
-<a onclick="show('hilfe')">Hilfe</a>
-<a href="https://jadedimp6654.github.io" target="_blank">Externer Link</a>
-</nav>
+  <h1>Suchtaufklärung</h1>
+  <nav>
+    <a onclick="showPage('start')">Start</a>
+    <a onclick="showPage('test')">Selbsttest</a>
+    <a onclick="showPage('alkohol')">Alkohol</a>
+    <a onclick="showPage('drogen')">Drogen</a>
+    <a onclick="showPage('medien')">Medien</a>
+    <a onclick="showPage('gluecksspiel')">Glücksspiel</a>
+    <a onclick="showPage('hilfe')">Hilfe</a>
+    <a href="https://jadedimp6654.github.io" target="_blank">Externe Seite</a>
+  </nav>
 </header>
-<div class="container">
-<section id="start" class="active">
-<h2>Startseite & Einführung</h2>
-<p>Willkommen zur interaktiven Informationsplattform über Suchtverhalten. Alles hier ist animiert, dynamisch und interaktiv gestaltet.</p>
-<p>Entdecken Sie die Seiten, klicken Sie auf Diagramme, interagieren Sie mit dem Selbsttest, und lernen Sie Schritt für Schritt.</p>
-<p>Die Website bietet fundierte Inhalte über stoffgebundene und Verhaltenssüchte, mit wissenschaftlich belegten Informationen.</p>
-<p>Sie können jederzeit in den Dark Mode wechseln und sehen, wie sich Farben, Text und Diagramme dynamisch anpassen.</p>
+
+<!-- Sections -->
+<section id="start">
+  <h2>Sucht verstehen – wissenschaftlich fundiert</h2>
+  <p>Sucht stellt ein komplexes biopsychosoziales Phänomen dar...</p>
 </section>
-<section id="arten">
-<h2>Suchtarten</h2>
-<h3>Stoffgebundene Süchte</h3>
-<p>Alkohol, Nikotin, Medikamente und Drogen wirken direkt auf das Belohnungssystem des Gehirns und können zu physischer und psychischer Abhängigkeit führen.</p>
-<p>Jede Substanz hat spezifische Risiken, Nebenwirkungen und Rückfallwahrscheinlichkeiten. Animierte Diagramme auf dieser Seite zeigen die relativen Risiken.</p>
-<h3>Verhaltenssüchte</h3>
-<p>Gaming, Social Media, Glücksspiel, Kaufsucht und Arbeitssucht beeinflussen das Belohnungssystem ähnlich stark wie Drogen.</p>
-<p>Hier gibt es interaktive Grafiken, die beim Scrollen wachsen und beim Hovern Details anzeigen.</p>
+
+<section id="test">
+  <h2>Interaktiver Selbsttest</h2>
+  <p>Dieser Selbsttest dient der Selbstreflexion.</p>
+  <div class="card">
+    <div class="test-question"><p>Hast du das Gefühl, dein Konsum ist schwer kontrollierbar?</p><input type="range" min="0" max="10" id="q1" /></div>
+    <div class="test-question"><p>Beeinflusst dein Verhalten deinen Alltag oder Beziehungen negativ?</p><input type="range" min="0" max="10" id="q2" /></div>
+    <div class="test-question"><p>Greifst du auf das Verhalten zurück, um Stress zu bewältigen?</p><input type="range" min="0" max="10" id="q3" /></div>
+    <div class="test-question"><p>Hast du schon versucht, dein Verhalten zu reduzieren – ohne Erfolg?</p><input type="range" min="0" max="10" id="q4" /></div>
+    <button onclick="evaluateTest()">Auswerten</button>
+    <p id="result" role="status"></p>
+  </div>
 </section>
-<section id="warnsignale">
-<h2>Warnsignale erkennen</h2>
-<p>Erkennen Sie Warnsignale frühzeitig. Scrollen Sie nach unten, um die Balkendiagramme zu animieren.</p>
-<div class="card">
-<h3>Statistische Übersicht</h3>
-<div class="chart">
-<div class="bar" data-value="72"><span>Alkohol</span></div>
-<div class="bar" data-value="58"><span>Nikotin</span></div>
-<div class="bar" data-value="46"><span>Gaming</span></div>
-<div class="bar" data-value="39"><span>Social Media</span></div>
-<div class="bar" data-value="22"><span>Glücksspiel</span></div>
-</div>
-<p>Hover über die Balken, um mehr Details zu sehen. Die Balken bauen sich beim Scrollen dynamisch auf.</p>
-</div>
+
+<section id="alkohol">
+  <h2>Alkoholkonsum und Abhängigkeit</h2>
+  <div class="card-grid">
+    <div class="card">Alkoholsucht ist eine chronische Erkrankung, die durch Kontrollverlust und Entzugssymptome gekennzeichnet ist.</div>
+    <div class="card">Langfristiger Konsum kann zu Lebererkrankungen und neurokognitiven Beeinträchtigungen führen.</div>
+    <div class="card">Therapie umfasst psychotherapeutische, medikamentöse und soziale Maßnahmen.</div>
+  </div>
 </section>
-<section id="selbsttest">
-<h2>Interaktiver Selbsttest</h2>
-<div class="card">
-<form id="testForm">
-<p>1. Denkst du häufig an eine Substanz oder ein Verhalten?</p>
-<label><input type="radio" name="q1" value="2"> Ja</label><br>
-<label><input type="radio" name="q1" value="1"> Manchmal</label><br>
-<label><input type="radio" name="q1" value="0"> Nein</label>
-<p>2. Hast du versucht zu reduzieren?</p>
-<label><input type="radio" name="q2" value="2"> Mehrmals ohne Erfolg</label><br>
-<label><input type="radio" name="q2" value="1"> Einmal</label><br>
-<label><input type="radio" name="q2" value="0"> Nie</label>
-<p>3. Vernachlässigst du Verpflichtungen?</p>
-<label><input type="radio" name="q3" value="2"> Häufig</label><br>
-<label><input type="radio" name="q3" value="1"> Gelegentlich</label><br>
-<label><input type="radio" name="q3" value="0"> Nie</label>
-<p>4. Erlebst du Unruhe ohne Konsum?</p>
-<label><input type="radio" name="q4" value="2"> Stark</label><br>
-<label><input type="radio" name="q4" value="1"> Leicht</label><br>
-<label><input type="radio" name="q4" value="0"> Gar nicht</label>
-<p>5. Konsumierst du trotz negativer Folgen?</p>
-<label><input type="radio" name="q5" value="2"> Ja</label><br>
-<label><input type="radio" name="q5" value="1"> Unsicher</label><br>
-<label><input type="radio" name="q5" value="0"> Nein</label>
-<button type="button" onclick="auswerten()">Auswerten</button>
-</form>
-<p id="ergebnis"></p>
-</div>
+
+<section id="drogen">
+  <h2>Drogenabhängigkeit</h2>
+  <div class="card-grid">
+    <div class="card">Illegale Substanzen greifen direkt in das Belohnungssystem des Gehirns ein.</div>
+    <div class="card">Abhängigkeit hängt von genetischen, psychologischen und sozialen Faktoren ab.</div>
+    <div class="card">Therapie erfordert Entzugsbehandlung, Psychotherapie und soziale Reintegration.</div>
+  </div>
 </section>
-<section id="ausstieg"><h2>Wege aus der Sucht</h2><p>Therapie, Selbsthilfe und kleine Schritte.</p></section>
-<section id="praevention"><h2>Prävention</h2><p>Aufklärung, soziale Kompetenz, Resilienz.</p></section>
-<section id="quellen"><h2>Quellen & Studien</h2><ul><li>WHO</li><li>BZgA</li><li>DHS</li><li>RKI</li><li>EMCDDA</li></ul></section>
-<section id="handlungsplan"><h2>Handlungsplan</h2><p>Anerkennen, informieren, Unterstützung, kleine Schritte, Rückfälle verstehen.</p></section>
-<section id="hilfe"><h2>Hilfe & Unterstützung</h2><p>Beratungsstellen, Hotlines, Online-Angebote.</p></section>
-</div>
-<footer><p>&copy; 2026 Darian Müller · Aufklärung über Suchtverhalten</p></footer>
-<button class="toggle" onclick="toggleDark()">Dark Mode</button>
+
+<section id="medien">
+  <h2>Medien- und Verhaltenssüchte</h2>
+  <div class="card-grid">
+    <div class="card">Problematische Mediennutzung zeigt ähnliche neuronale Muster wie Substanzabhängigkeit.</div>
+    <div class="card">Variable Belohnungen und soziale Bestätigung verstärken die Nutzung.</div>
+    <div class="card">Prävention: Medienkompetenz, Selbstregulation, strukturierte Rahmenbedingungen.</div>
+  </div>
+</section>
+
+<section id="gluecksspiel">
+  <h2>Glücksspielbezogene Störungen</h2>
+  <div class="card-grid">
+    <div class="card">Glücksspielsucht ist eine Verhaltenssucht, charakterisiert durch persistentes dysfunktionales Spiel.</div>
+    <div class="card">Folgen: finanzielle Probleme, soziale Isolation, psychische Komorbidität.</div>
+    <div class="card">Therapie: kognitive Verhaltenstherapie, Schuldenberatung, Rückfallprävention.</div>
+  </div>
+</section>
+
+<section id="hilfe">
+  <h2>Professionelle Hilfe</h2>
+  <div class="card-grid">
+    <div class="card">Frühzeitige Intervention ist entscheidend. Beratungsstellen, Therapie und medizinische Unterstützung helfen individuell.</div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Darian Müller – Alle Rechte vorbehalten
+</footer>
+
+<button id="darkModeToggle" onclick="toggleDarkMode()">Toggle Mode</button>
+
 <script>
-function show(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
-window.addEventListener('scroll',()=>{const h=document.documentElement;const sc=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;document.getElementById('progress').style.width=sc+'%'});
-function toggleDark(){document.body.classList.toggle('dark');}
-const bars=document.querySelectorAll('.bar');
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const val=e.target.getAttribute('data-value');e.target.style.width=val+'%';}});},{threshold:.6});
-bars.forEach(b=>observer.observe(b));
-function auswerten(){let score=0;for(let i=1;i<=5;i++){const q=document.querySelector('input[name=q'+i+']:checked');if(q) score+=parseInt(q.value);}const out=document.getElementById('ergebnis');if(score<=3){out.innerText='Geringes Risiko: Kaum Anzeichen.'}else if(score<=6){out.innerText='Mittleres Risiko: Erste Warnsignale erkennbar.'}else{out.innerText='Erhöhtes Risiko: Professionelle Beratung empfohlen.'}}
+  function showPage(id) {
+    const pages = document.querySelectorAll('section');
+    pages.forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function evaluateTest() {
+    const score = Number(q1.value) + Number(q2.value) + Number(q3.value) + Number(q4.value);
+    const result = document.getElementById('result');
+    if (score < 15) result.textContent = 'Geringes Risiko – Verhalten unauffällig.';
+    else if (score < 30) result.textContent = 'Mittleres Risiko – bewusst handeln, ggf. Beratung.';
+    else result.textContent = 'Hohes Risiko – professionelle Hilfe empfohlen.';
+  }
+
+  function toggleDarkMode() {
+    const body = document.body;
+    const isDark = body.dataset.mode === 'dark';
+    body.dataset.mode = isDark ? 'light' : 'dark';
+
+    body.style.backgroundColor = isDark ? 'var(--light-bg)' : 'var(--dark-bg)';
+    body.style.color = isDark ? 'var(--text-light)' : 'var(--text-dark)';
+
+    const header = document.querySelector('header');
+    header.style.background = isDark ? 'var(--header-light)' : 'var(--header-dark)';
+    header.style.color = isDark ? 'var(--text-light)' : 'var(--text-dark)';
+
+    const footer = document.querySelector('footer');
+    footer.style.background = isDark ? 'var(--footer-light)' : 'var(--footer-dark)';
+    footer.style.color = isDark ? 'var(--text-light)' : 'var(--text-dark)';
+
+    document.querySelectorAll('section').forEach(section => {
+      section.style.background = isDark ? 'var(--section-light)' : 'var(--section-dark)';
+      section.style.color = isDark ? 'var(--text-light)' : 'var(--text-dark)';
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.background = isDark ? 'var(--card-light)' : 'var(--card-dark)';
+      card.style.color = isDark ? 'var(--text-light)' : 'var(--text-dark)';
+    });
+  }
 </script>
+
 </body>
 </html>
