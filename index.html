@@ -1,322 +1,409 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Suchtaufklärung – Schulprojekt in Biologie</title>
-<style>
-:root {
-  --bg-dark:#000;
-  --bg-light:#f8fafc;
-  --glass-dark:rgba(255,255,255,0.05);
-  --glass-light:rgba(255,255,255,0.75);
-  --text-dark:#f8fafc;
-  --text-light:#111;
-  --muted-dark:#c0c0c0;
-  --muted-light:#475569;
-  --accent-dark:#60a5fa;
-  --accent-light:#2563eb;
-  --test-bg-dark:linear-gradient(145deg, rgba(20,20,30,.95), rgba(10,10,20,.85));
-  --test-bg-light:#fff;
-  --test-text-dark:#f8fafc;
-  --test-text-light:#111;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kreativaufgabe Biologie – Ökosystem unter dem Einfluss des Menschen</title>
+  <style>
+    :root {
+      --bg-dark: #0b1220;
+      --bg-light: #f4f7f9;
+      --card-dark: rgba(17, 24, 39, 0.85);
+      --card-light: rgba(255, 255, 255, 0.92);
+      --text-dark: #ecfeff;
+      --text-light: #0f172a;
+      --muted-dark: #9ca3af;
+      --muted-light: #475569;
+      --accent-dark: #22c55e;
+      --accent-light: #0f766e;
+      --border-dark: rgba(255, 255, 255, 0.12);
+      --border-light: rgba(15, 23, 42, 0.15);
+    }
 
-/* Themes */
-body[data-theme="dark"] {
-  --bg:var(--bg-dark);
-  --glass:var(--glass-dark);
-  --text:var(--text-dark);
-  --muted:var(--muted-dark);
-  --accent:var(--accent-dark);
-  --test-bg:var(--test-bg-dark);
-  --test-text:var(--test-text-dark);
-}
-body[data-theme="light"] {
-  --bg:var(--bg-light);
-  --glass:var(--glass-light);
-  --text:var(--text-light);
-  --muted:var(--muted-light);
-  --accent:var(--accent-light);
-  --test-bg:var(--test-bg-light);
-  --test-text:var(--test-text-light);
-}
+    body[data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --card: var(--card-dark);
+      --text: var(--text-dark);
+      --muted: var(--muted-dark);
+      --accent: var(--accent-dark);
+      --border: var(--border-dark);
+    }
 
-* {margin:0;padding:0;box-sizing:border-box;}
-body {
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  padding-top:80px;
-  min-height:100vh;
-  transition:background .4s, color .4s;
-}
+    body[data-theme="light"] {
+      --bg: var(--bg-light);
+      --card: var(--card-light);
+      --text: var(--text-light);
+      --muted: var(--muted-light);
+      --accent: var(--accent-light);
+      --border: var(--border-light);
+    }
 
-header {
-  position:fixed; top:0; left:0; right:0; height:70px;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:0 6%; background:var(--glass);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.1);
-  z-index:1000;
-}
-header h1 {
-  font-size:1.4rem; font-weight:800; cursor:pointer;
-  background:linear-gradient(90deg,var(--accent),#38bdf8);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-}
-nav { display:flex; gap:16px; align-items:center; flex-wrap:wrap; transition:.3s;}
-nav a { font-size:.85rem; color:var(--muted); cursor:pointer; transition:.3s;}
-nav a:hover { color:var(--text); transform:translateY(-1px);}
-#themeToggle {
-  border:1px solid rgba(255,255,255,.2); background:none;
-  border-radius:10px; padding:6px 10px; cursor:pointer; color:var(--text);
-  transition:.3s;
-}
-#themeToggle:hover { background:var(--glass); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.container { max-width:1000px; margin:auto; padding:40px 20px; }
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at 20% 10%, rgba(34, 197, 94, 0.18), transparent 40%), var(--bg);
+      color: var(--text);
+      padding-top: 82px;
+      min-height: 100vh;
+      transition: background .3s, color .3s;
+    }
 
-section {
-  display:none;
-  animation:fadeUp .6s ease forwards;
-  transform:translateY(0);
-  transition:transform 0.3s ease-out;
-}
-section.active { display:block; }
-@keyframes fadeUp { from {opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      backdrop-filter: blur(10px);
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
 
-h2 { font-size:2rem; margin-bottom:12px; }
-.subtitle { color:var(--muted); max-width:650px; margin-bottom:40px; line-height:1.6; }
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent);
+      cursor: pointer;
+    }
 
-/* Test-Box Modern */
-.test-box {
-  background:var(--test-bg);
-  color:var(--test-text);
-  border-radius:28px; padding:36px; max-width:540px; margin:auto;
-  box-shadow:0 20px 60px rgba(0,0,0,0.3); position:relative;
-  animation:float 6s ease-in-out infinite;
-  transition:background 0.4s ease, transform 0.3s ease, color 0.4s ease;
-}
-@keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-.question { margin-bottom:24px; }
-label { display:flex; justify-content:space-between; font-weight:600; }
-.value { color: var(--accent); transition:.3s; }
-input[type=range]{ width:100%; margin-top:10px; height:14px; border-radius:7px; background: rgba(255,255,255,0.1); accent-color: var(--accent); transition: all 0.3s ease;}
-input[type=range]:active { filter: drop-shadow(0 0 6px var(--accent));}
-input[type=range]::-webkit-slider-thumb {
-  height:24px; width:24px; border-radius:50%; background:var(--accent); cursor:pointer;
-  box-shadow:0 0 8px rgba(0,0,0,0.4); transition: all 0.3s ease;
-}
-input[type=range]:active::-webkit-slider-thumb { transform:scale(1.2); }
+    nav { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    nav a { cursor: pointer; font-size: .9rem; color: var(--muted); }
+    nav a:hover { color: var(--text); }
 
-.score-ring { width:100px; height:100px; margin:20px auto; position:relative; }
-.score-ring svg { overflow:visible; transform:rotate(-90deg); }
-.score-ring circle { fill:none; stroke-width:10; stroke-linecap:round; transition: stroke-dashoffset .6s, stroke .4s;}
-.score-ring-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:700; font-size:1.1rem; }
+    button {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
 
-.btn-action { width:100%; padding:16px; border-radius:16px; border:none; font-weight:700;
-  background: linear-gradient(90deg,var(--accent),#38bdf8); box-shadow: 0 8px 20px rgba(0,0,0,.25); cursor:pointer; transition:0.3s;}
-.btn-action:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.35); }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
 
-#result { margin-top:20px; padding:16px; border-radius:14px; text-align:center; font-weight:700;
-  display:block; background: rgba(255,255,255,.05); animation:fadeUp .5s ease forwards;}
+    section { display: none; animation: fadeIn .4s ease; }
+    section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-footer {
-  margin-top:80px; padding:32px; text-align:center; font-size:.8rem; color:var(--muted);
-  border-top:1px solid rgba(255,255,255,.1);
-}
+    h2 { margin-bottom: 10px; font-size: 1.9rem; }
+    .subtitle { color: var(--muted); line-height: 1.55; margin-bottom: 24px; max-width: 900px; }
 
-/* MOBILE */
-@media (max-width:768px){
-  header { padding:0 4%; }
-  header h1 { font-size:1.2rem; }
-  nav { flex-direction:column; position:fixed; top:70px; left:-100%; width:100%; height:calc(100vh - 70px); padding-top:20px; gap:20px; transition:.3s;
-        background:var(--bg); color:var(--text);}
-  nav a { font-size:1.2rem; color:var(--text) !important; text-align:center; }
-  nav.active { left:0; }
-  #themeToggle { margin-top:10px; align-self:center; }
-  h2 { font-size:1.6rem; }
-  .subtitle { font-size:.95rem; margin-bottom:30px; }
-  .test-box { padding:24px; max-width:90%; }
-  .score-ring { width:80px; height:80px; }
-}
-</style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .card h3 { margin-bottom: 8px; }
+    .card p, .card li { color: var(--muted); line-height: 1.5; }
+
+    .sim-box {
+      max-width: 700px;
+      margin: 10px auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    .question { margin-bottom: 18px; }
+    label { display: flex; justify-content: space-between; font-weight: 700; gap: 12px; }
+    .value { color: var(--accent); }
+    input[type="range"] { width: 100%; margin-top: 8px; accent-color: var(--accent); }
+
+    .result {
+      margin-top: 18px;
+      border-radius: 12px;
+      padding: 14px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid var(--border);
+      font-weight: 700;
+    }
+
+        .option-btn { text-align: left; width: 100%; min-height: 64px; }
+    .option-btn:hover { border-color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 28px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0 4%; height: auto; min-height: 72px; }
+      nav { gap: 10px; }
+      h2 { font-size: 1.55rem; }
+    }
+  </style>
 </head>
 <body data-theme="dark">
+  <header>
+    <h1 onclick="showPage('start')">Bio-Kreativaufgabe</h1>
+    <nav>
+      <a onclick="showPage('start')">Start</a>
+      <a onclick="showPage('wissen')">Wissen</a>
+      <a onclick="showPage('simulation')">Öko-Simulation</a>
+      <a onclick="showPage('comic')">Comic-Storyboard</a>
+      <button id="themeToggle" onclick="toggleTheme()">🌓</button>
+    </nav>
+  </header>
 
-<header>
-  <h1 onclick="showPage('start')">Suchtaufklärung</h1>
-  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-  <nav id="mainNav">
-    <a onclick="showPage('start')">Start</a>
-    <a onclick="showPage('test')">Selbsttest</a>
-    <a onclick="showPage('alkohol')">Alkohol</a>
-    <a onclick="showPage('drogen')">Drogen</a>
-    <a onclick="showPage('medien')">Medien</a>
-    <a onclick="showPage('computerspielsucht')">Computerspielsucht</a>
-    <a onclick="showPage('kaufsucht')">Kaufsucht</a>
-    <a onclick="showPage('glücksspielsucht')">Glücksspielsucht</a>
-    <a onclick="showPage('entstehung')">Entstehung von Sucht</a>
-    <a onclick="showPage('hilfe')">Hilfe</a>
-    <button id="themeToggle" onclick="toggleTheme()">🌓</button>
-  </nav>
-</header>
+  <main class="container">
+    <section id="start" class="active">
+      <h2>Arbeitsauftrag: Kreativaufgabe Ökologie</h2>
+      <p class="subtitle">Im Zentrum dieser Website steht der Lernbereich <strong>„Ökosysteme unter dem Einfluss des Menschen“</strong>. Ziel ist es, ökologische Zusammenhänge nicht nur zu beschreiben, sondern sie als dynamische Prozesse zu verstehen: Eingriffe in Wasserhaushalt, Bodenstruktur oder Artenzusammensetzung wirken meist nicht isoliert, sondern lösen Kettenreaktionen aus. Genau diese Wechselwirkungen sollen hier fachlich fundiert nachvollzogen und kreativ aufbereitet werden.</p>
+      <div class="card">
+        <h3>Fachlicher Fokus und Arbeitsziel</h3>
+        <p>Ich habe diese Website als Kreativaufgabe zum Thema Ökologie im Arbeitsauftrag in Biologie in der EVA-Phase entwickelt. @Arnold Weibel: Ich wünsche Ihnen viel Spaß und Freude beim korrigieren ;-)</p>
+      </div>
+    </section>
 
-<main class="container">
-<section id="start" class="active"><h2>Wissen ist Schutz.</h2><p class="subtitle">Informiere dich über Abhängigkeiten und finde Wege zu einem bewussten Leben.</p></section>
+    <section id="wissen">
+      <h2>Fachwissen: Ökosysteme im Wandel</h2>
+      <p class="subtitle">Ökosysteme sind funktionale Netzwerke aus Lebensraum (Biotop) und Lebensgemeinschaft (Biozönose). Ihre Stabilität hängt davon ab, wie gut Stoffkreisläufe, Energiefluss und Artenbeziehungen zusammenspielen. Wird in dieses System eingegriffen – etwa durch Flächenversiegelung, Gewässerausbau, intensive Landwirtschaft oder Schadstoffeinträge –, verändern sich abiotische Faktoren wie Temperatur, Licht, Wasserverfügbarkeit und Nährstoffgehalte. Daraus folgen häufig Verschiebungen in der Artenzusammensetzung: empfindliche Arten gehen zurück, robuste Generalisten nehmen zu. Langfristig kann dadurch Biodiversität verloren gehen und die Resilienz des Systems sinken.</p>
+      <div class="card" style="margin-top: 14px;">
+        <h3>Bewerten und begründen wie in der Biologie</h3>
+        <p>Für eine fundierte Bewertung reicht eine reine Beschreibung („es wird schlechter“) nicht aus. Fachlich überzeugend ist eine Begründung entlang von Ursache und Wirkung: <em>Welche menschliche Maßnahme wurde durchgeführt?</em> – <em>Welche unmittelbaren Veränderungen im Lebensraum treten auf?</em> – <em>Welche kurz- und langfristigen Folgen ergeben sich für Arten, Nahrungsnetze und Stoffkreisläufe?</em> Erst auf dieser Basis lassen sich nachhaltige Alternativen ableiten, etwa Renaturierung, Entsiegelung, Pufferstreifen, reduzierte Schadstoffeinträge oder Bildungsmaßnahmen. Genau dieses Denken trainierst du mit den interaktiven Bereichen dieser Seite.</p>
+      </div>
+    </section>
 
-<section id="test">
-<h2>Selbsttest</h2>
-<p class="subtitle">Ehrliche Antworten helfen dir, dein Risiko besser einzuschätzen. Dieser Test ist nur für Drogen und Alkoholsucht.</p>
-<div class="test-box">
-<div class="question">
-<label>Gedanken an Konsum <span class="value" id="v1">0</span></label>
-<input type="range" id="q1" min="0" max="10" value="0">
-</div>
-<div class="question">
-<label>Vernachlässigung von anderen Dingen<span class="value" id="v2">0</span></label>
-<input type="range" id="q2" min="0" max="10" value="0">
-</div>
-<div class="question">
-<label>Heimlicher Konsum <span class="value" id="v3">0</span></label>
-<input type="range" id="q3" min="0" max="10" value="0">
-</div>
+    <section id="simulation">
+      <h2>Interaktive Ökosystem-Simulation</h2>
+      <p class="subtitle">Regle drei Faktoren und beobachte, wie sich die „Ökosystem-Gesundheit“ verändert.</p>
+      <div class="sim-box">
+        <div class="question">
+          <label>Flächenversiegelung <span class="value" id="v1">20%</span></label>
+          <input type="range" id="q1" min="0" max="100" value="20" />
+        </div>
+        <div class="question">
+          <label>Renaturierungsmaßnahmen <span class="value" id="v2">40%</span></label>
+          <input type="range" id="q2" min="0" max="100" value="40" />
+        </div>
+        <div class="question">
+          <label>Pestizid-/Schadstoffeintrag <span class="value" id="v3">25%</span></label>
+          <input type="range" id="q3" min="0" max="100" value="25" />
+        </div>
+        <button onclick="evaluateEco()">Auswerten</button>
+        <div class="result" id="ecoResult">Stelle Werte ein und starte die Auswertung.</div>
+      </div>
+    </section>
 
-<div class="score-ring">
-<svg width="100" height="100">
-<defs>
-<linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" stop-color="green"/>
-<stop offset="50%" stop-color="orange"/>
-<stop offset="100%" stop-color="red"/>
-</linearGradient>
-</defs>
-<circle cx="50" cy="50" r="45" stroke="#444"/>
-<circle id="progress-ring" cx="50" cy="50" r="45" stroke="url(#grad)" stroke-dasharray="283" stroke-dashoffset="283"/>
-</svg>
-<div class="score-ring-text" id="scoreText">0</div>
-</div>
+    <section id="comic">
+      <h2>Interaktive Comic-Planung</h2>
+      <p class="subtitle">Entscheide selbst, wie deine Geschichte weitergeht. Du bekommst 8 Entscheidungen mit je 3 Optionen. Am Ende erhältst du eine Zusammenfassung mit Verbesserungstipps.</p>
+      <div class="card">
+        <p id="storyProgress" class="subtitle" style="margin-bottom:8px;">Frage 1 von 8</p>
+        <h3 id="storyTitle">Start deiner Geschichte</h3>
+        <p id="storyText">Du planst ein Comic über ein Ökosystem in deiner Region.</p>
+        <div id="storyOptions" class="grid" style="margin-top:14px;"></div>
+        <p id="natureResponse" class="subtitle" style="margin-top:14px;"></p>
+        <div id="storySummary" class="result" style="display:none;"></div>
+        <div style="margin-top:14px; display:flex; gap:10px;">
+          <button onclick="resetStory()">Neu starten</button>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<button class="btn-action" onclick="evaluateTest()">Auswerten</button>
-<div id="result"></div>
-</div>
-</section>
+  <footer>
+    Schulprojekt Biologie · Kreativaufgabe „Ökosysteme unter dem Einfluss des Menschen“ · &copy; Darian Müller 2026
+  </footer>
 
-<!-- andere sections unverändert -->
-<section id="alkohol"><h2>Alkohol</h2><p class="subtitle">Alkohol ist eine der am weitesten verbreiteten psychoaktiven Substanzen weltweit und nimmt gesellschaftlich eine Sonderstellung ein: Er ist legal, kulturell tief verankert und sozial akzeptiert, obwohl seine pharmakologischen Eigenschaften und sein Schadenspotenzial klar denen einer Droge entsprechen. Chemisch handelt es sich bei Trinkalkohol um Ethanol, eine Substanz, die durch die Gärung von Zucker durch Hefen entsteht und seit Jahrtausenden in Form von Bier, Wein und später auch destillierten Spirituosen konsumiert wird. Seine historische Bedeutung als Genuss-, Ritual- und Handelsgut steht jedoch in deutlichem Kontrast zu den medizinischen, psychologischen und sozialen Risiken, die mit seinem Konsum verbunden sind.
+  <script>
+    document.body.setAttribute("data-theme", localStorage.getItem("theme") || "dark");
 
-Aus neurobiologischer Sicht wirkt Alkohol primär dämpfend auf das zentrale Nervensystem. Er verstärkt die Wirkung des inhibitorischen Neurotransmitters GABA und hemmt gleichzeitig exzitatorische Glutamatsysteme. Diese Kombination führt zu einer verminderten neuronalen Erregbarkeit. Subjektiv äußert sich das zunächst in Entspannung, Enthemmung und gehobener Stimmung. Mit steigender Dosis treten jedoch zunehmend kognitive und motorische Beeinträchtigungen auf: Reaktionszeit, Aufmerksamkeit, Urteilsvermögen und Koordination verschlechtern sich. Sprache wird verwaschen, das Blickfeld eingeschränkt, und die Fähigkeit, Risiken realistisch einzuschätzen, nimmt deutlich ab. Gerade diese Mischung aus subjektiver Selbstüberschätzung und objektiver Leistungsminderung macht Alkohol im Straßenverkehr oder beim Bedienen von Maschinen besonders gefährlich.
+    function toggleTheme() {
+      const next = document.body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.body.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    }
 
-Der Abbau von Alkohol erfolgt überwiegend in der Leber über das Enzym Alkoholdehydrogenase. Dabei wird Ethanol zunächst zu Acetaldehyd umgewandelt, einer toxischen Zwischenstufe, die maßgeblich zu akuten Beschwerden wie Übelkeit, Kopfschmerzen und allgemeinem Unwohlsein beiträgt. Anschließend wird Acetaldehyd zu Essigsäure weiterverarbeitet. Dieser Stoffwechselprozess ist zeitlich limitiert; der Körper kann nur eine bestimmte Menge Alkohol pro Stunde abbauen. Maßnahmen wie Kaffee, kalte Duschen oder Bewegung verändern diesen Prozess nicht wesentlich. Entsprechend bleibt die Beeinträchtigung so lange bestehen, bis der Blutalkoholspiegel tatsächlich gesunken ist.
+    function showPage(id) {
+      document.querySelectorAll("section").forEach((section) => section.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      window.scrollTo(0, 0);
+    }
 
-Akut hohe Alkoholmengen können zu einer Alkoholvergiftung führen, einem medizinischen Notfall. Symptome wie Erbrechen, Bewusstseinsstörungen, Unterkühlung, Atemdepression und Kreislaufinstabilität können lebensbedrohlich sein. Besonders gefährlich ist das Risiko, im bewusstlosen Zustand Erbrochenes einzuatmen. Neben diesen akuten Gefahren sind es jedoch vor allem die langfristigen Folgen regelmäßigen Konsums, die aus Public-Health-Perspektive relevant sind.
+    const q1 = document.getElementById("q1");
+    const q2 = document.getElementById("q2");
+    const q3 = document.getElementById("q3");
+    const v1 = document.getElementById("v1");
+    const v2 = document.getElementById("v2");
+    const v3 = document.getElementById("v3");
 
-Chronischer Alkoholkonsum schädigt nahezu alle Organsysteme. Die Leber ist besonders betroffen: Von der Fettleber über alkoholische Hepatitis bis hin zur Leberzirrhose reicht das Spektrum möglicher Erkrankungen. Auch das Risiko für verschiedene Krebsarten, etwa im Bereich der Mundhöhle, der Speiseröhre, der Leber und der Brust, ist erhöht. Das Herz-Kreislauf-System kann durch Bluthochdruck und Herzrhythmusstörungen belastet werden, während das Nervensystem durch Gedächtnisprobleme, Konzentrationsstörungen und periphere Neuropathien geschädigt werden kann. Zudem beeinträchtigt Alkohol die Schlafarchitektur: Zwar verkürzt er oft die Einschlafzeit, reduziert jedoch den erholsamen REM-Schlaf und führt zu fragmentiertem Schlaf.
+    [q1, q2, q3].forEach((slider, idx) => {
+      slider.addEventListener("input", () => {
+        document.getElementById(`v${idx + 1}`).textContent = `${slider.value}%`;
+      });
+    });
 
-Eine besondere Bedeutung kommt dem Abhängigkeitspotenzial von Alkohol zu. Durch die Aktivierung des dopaminergen Belohnungssystems im Gehirn wird der Konsum positiv verstärkt. Wiederholter Gebrauch kann zu neuroadaptiven Veränderungen führen, die Toleranzentwicklung und Entzugssymptome begünstigen. Betroffene benötigen zunehmend größere Mengen, um die gleiche Wirkung zu erzielen. Beim Absetzen können Zittern, Schwitzen, Unruhe, Schlafstörungen und im Extremfall Krampfanfälle oder ein Delirium tremens auftreten. Alkoholabhängigkeit ist eine anerkannte Erkrankung, die biologische, psychologische und soziale Faktoren umfasst und eine professionelle Behandlung erfordert.
+    function evaluateEco() {
+      const versiegelung = Number(q1.value);
+      const renaturierung = Number(q2.value);
+      const schadstoff = Number(q3.value);
 
-Die sozialen Auswirkungen sind ebenfalls erheblich. Problematischer Alkoholkonsum steht in Zusammenhang mit familiären Konflikten, häuslicher Gewalt, Leistungsabfall im Beruf, Arbeitslosigkeit und finanziellen Schwierigkeiten. Scham und Stigmatisierung erschweren häufig den Zugang zu Hilfe, obwohl Frühinterventionen und therapeutische Angebote nachweislich wirksam sein können. Psychotherapeutische Verfahren, medikamentöse Unterstützung und Selbsthilfegruppen sind zentrale Bausteine moderner Suchtbehandlung.
+      let score = 100 - (versiegelung * 0.45) - (schadstoff * 0.45) + (renaturierung * 0.5);
+      score = Math.max(0, Math.min(100, Math.round(score)));
 
-Besonders sensibel ist der Alkoholkonsum in der Schwangerschaft. Bereits geringe Mengen können das ungeborene Kind schädigen und zu fetalen Alkoholspektrumstörungen führen, die mit körperlichen Fehlbildungen, Wachstumsstörungen und dauerhaften kognitiven Beeinträchtigungen einhergehen. Da keine sichere Untergrenze bekannt ist, gilt hier das Prinzip der vollständigen Abstinenz.
+      const out = document.getElementById("ecoResult");
+      if (score >= 70) {
+        out.textContent = `Gesundheit: ${score}/100 – stabil. Viele Arten können überleben. Nutze das als positives Ende deiner Kreativgeschichte.`;
+      } else if (score >= 40) {
+        out.textContent = `Gesundheit: ${score}/100 – kritisch. Zeige in deiner Story den Kipppunkt und mögliche Gegenmaßnahmen.`;
+      } else {
+        out.textContent = `Gesundheit: ${score}/100 – stark belastet. Perfekt für einen dramatischen Konfliktteil mit klarer Lösungsstrategie.`;
+      }
+    }
 
-Gesellschaftlich stellt Alkohol eine Herausforderung dar, weil er zwischen Genussmittel und Droge angesiedelt ist. Kulturelle Rituale, Werbung und soziale Normen tragen zu seiner Normalisierung bei, während die gesundheitlichen Folgekosten beträchtlich sind. Präventionsmaßnahmen, Altersgrenzen, Besteuerung und Aufklärungskampagnen sind daher wichtige Instrumente der Gesundheitspolitik.
+    const storySteps = [
+      { key: "ort", title: "1) Welchen Raum wählt der Mensch als Entwicklungsfläche?", text: "Wähle den Ausgangsort für die Geschichte.", options: [
+        {label: "Bebauung nah am Flussufer", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Ausbau am bestehenden Siedlungsrand", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "Flächensparende Nachverdichtung", impact: {biodiversity: 1, pressure: -1, sustainability: 2}}
+      ]},
+      { key: "wasserbau", title: "2) Welche Maßnahme am Gewässer setzt der Mensch um?", text: "Entscheide über den Eingriff in den Wasserlauf.", options: [
+        {label: "Flussbegradigung für schnelleren Abfluss", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Teilweise Uferbefestigung", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "Naturnahe Ufergestaltung", impact: {biodiversity: 2, pressure: -1, sustainability: 2}}
+      ]},
+      { key: "landnutzung", title: "3) Wie betreibt der Mensch Landwirtschaft?", text: "Wähle die Form der Nutzung.", options: [
+        {label: "Intensiv mit hohem Pestizideinsatz", impact: {biodiversity: -2, pressure: 2, sustainability: -2}},
+        {label: "Konventionell mit reduzierten Mitteln", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "Ökologisch mit Blühstreifen", impact: {biodiversity: 2, pressure: -1, sustainability: 2}}
+      ]},
+      { key: "verkehr", title: "4) Welche Verkehrsentscheidung trifft die Gemeinde?", text: "Lege den nächsten menschlichen Eingriff fest.", options: [
+        {label: "Neue Umgehungsstraße durch Grünraum", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Bestehende Straßen erweitern", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "ÖPNV und Radwege priorisieren", impact: {biodiversity: 1, pressure: -1, sustainability: 2}}
+      ]},
+      { key: "siedlung", title: "5) Was passiert mit versiegelten Flächen?", text: "Wähle den Umgang mit Bodenflächen.", options: [
+        {label: "Weitere Parkflächen versiegeln", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Status quo beibehalten", impact: {biodiversity: -1, pressure: 0, sustainability: 0}},
+        {label: "Teilentsiegeln und begrünen", impact: {biodiversity: 2, pressure: -1, sustainability: 2}}
+      ]},
+      { key: "wasser", title: "6) Wie kontrolliert der Mensch Schadstoffeinträge?", text: "Entscheide über konkrete Schutzmaßnahmen.", options: [
+        {label: "Kaum Kontrollen", impact: {biodiversity: -2, pressure: 2, sustainability: -2}},
+        {label: "Regelmäßige Stichproben", impact: {biodiversity: 0, pressure: 0, sustainability: 1}},
+        {label: "Strenge Kontrollen + Pufferstreifen", impact: {biodiversity: 2, pressure: -2, sustainability: 2}}
+      ]},
+      { key: "bildung", title: "7) Welche Rolle spielt Umweltbildung?", text: "Lege fest, wie stark die Bevölkerung eingebunden wird.", options: [
+        {label: "Keine Bildungsarbeit", impact: {biodiversity: -1, pressure: 1, sustainability: -2}},
+        {label: "Einmalige Infoveranstaltung", impact: {biodiversity: 0, pressure: 0, sustainability: 0}},
+        {label: "Dauerhafte Schul- und Bürgerprojekte", impact: {biodiversity: 1, pressure: -1, sustainability: 2}}
+      ]},
+      { key: "abschluss", title: "8) Welche langfristige Strategie beschließt die Politik?", text: "Bestimme den Abschluss der menschlichen Entscheidungen.", options: [
+        {label: "Wirtschaft vor Ökologie", impact: {biodiversity: -2, pressure: 2, sustainability: -2}},
+        {label: "Kompromiss mit kleinen Schutzinseln", impact: {biodiversity: 0, pressure: 0, sustainability: 0}},
+        {label: "Verbindlicher Renaturierungsplan", impact: {biodiversity: 2, pressure: -2, sustainability: 3}}
+      ]}
+    ];
 
-Ein verantwortungsvoller Umgang mit Alkohol setzt Wissen über Wirkungen und Risiken voraus sowie die Fähigkeit, eigene Grenzen zu erkennen und soziale Situationen auch ohne Substanzkonsum zu gestalten. Für Menschen mit problematischem Konsum ist es entscheidend zu wissen, dass Unterstützung verfügbar ist und Veränderung möglich bleibt. Alkohol ist keine harmlose Alltagserscheinung, sondern eine potente psychoaktive Substanz, deren bewusste und reflektierte Einordnung eine zentrale Voraussetzung für individuelle und gesellschaftliche Gesundheit darstellt.
-</p></section>
-<section id="drogen"><h2>Drogensucht</h2><p class="subtitle">Drogensucht, fachlich als Substanzgebrauchsstörung bezeichnet, ist eine chronische, oft fortschreitende Erkrankung des Gehirns, die durch den zwanghaften Konsum psychoaktiver Substanzen trotz schädlicher Folgen gekennzeichnet ist. Betroffen sind sowohl illegale Drogen wie Heroin, Kokain oder Methamphetamin als auch legale Substanzen wie Alkohol, Nikotin oder verschreibungspflichtige Medikamente mit Abhängigkeitspotenzial (z. B. Opioide oder Benzodiazepine). Im Zentrum der Erkrankung steht eine tiefgreifende Veränderung neuronaler Belohnungs-, Motivations- und Kontrollsysteme.
-Psychoaktive Substanzen greifen direkt in die Neurotransmitterregulation ein, insbesondere im dopaminergen Belohnungssystem (mesolimbisches System). Durch wiederholten Konsum wird die natürliche Reizverarbeitung verändert: Alltägliche positive Erfahrungen verlieren an Bedeutung, während die Substanz selbst zum dominanten Motivationsreiz wird. Es entsteht eine Toleranzentwicklung, sodass zunehmend höhere Dosen erforderlich sind, um die gewünschte Wirkung zu erzielen. Gleichzeitig treten Entzugssymptome auf, wenn der Konsum reduziert oder beendet wird – ein zentraler Treiber für Rückfälle.
-Drogensucht betrifft nicht nur das Individuum, sondern wirkt sich auf soziale, berufliche und familiäre Strukturen aus. Häufige Folgen sind Leistungsabfall, Arbeitsplatzverlust, finanzielle Probleme, soziale Isolation sowie körperliche und psychische Begleiterkrankungen wie Depressionen, Angststörungen, Infektionskrankheiten oder Organschäden. Charakteristisch ist der Kontrollverlust über Beginn, Menge und Dauer des Konsums.
-Therapeutisch erfordert Drogensucht einen multimodalen Ansatz aus Entgiftung, psychotherapeutischen Verfahren (z. B. kognitive Verhaltenstherapie), Rückfallprophylaxe, sozialer Reintegration und – je nach Substanz – medikamentöser Unterstützung (Substitution, Anticraving-Medikamente). Da es sich um eine chronische Erkrankung handelt, ist langfristige Stabilisierung wichtiger als kurzfristige Abstinenz.</p></section>
-<section id="medien"><h2>Mediensucht</h2><p class="subtitle">Mediensucht beschreibt ein suchtähnliches, exzessives Nutzungsverhalten digitaler Medien wie soziale Netzwerke, Streaming-Plattformen oder Online-Kommunikationsdienste. Obwohl nicht jede intensive Mediennutzung pathologisch ist, wird von einer Abhängigkeit gesprochen, wenn Kontrollverlust, Vernachlässigung anderer Lebensbereiche und psychische Belastungen auftreten.
-Digitale Medien sind so gestaltet, dass sie kontinuierliche Reiz- und Belohnungsschleifen erzeugen: Likes, Benachrichtigungen und neue Inhalte wirken als variable Verstärker, die das dopaminerge System aktivieren. Diese Mechanismen ähneln klassischen Konditionierungsprozessen. Betroffene entwickeln eine starke gedankliche Einengung auf mediale Aktivitäten, während schulische, berufliche oder soziale Verpflichtungen in den Hintergrund treten.
-Langfristig können Schlafstörungen, Konzentrationsprobleme, emotionale Abstumpfung, soziale Rückzugsprozesse sowie depressive Verstimmungen entstehen. Besonders gefährdet sind Jugendliche, da sich exekutive Kontrollfunktionen im präfrontalen Kortex noch in Entwicklung befinden. Zudem dient Medienkonsum häufig als Bewältigungsstrategie bei Stress, Einsamkeit oder Selbstwertproblemen.
-Präventiv und therapeutisch stehen Medienkompetenz, strukturierte Nutzungszeiten, Förderung realer Sozialkontakte und psychotherapeutische Interventionen im Vordergrund. Ziel ist nicht zwingend vollständige Abstinenz, sondern ein kontrollierter und funktionaler Umgang.</p></section>
-<section id="computerspielsucht"><h2>Computerspielsucht</h2><p class="subtitle">Computerspielsucht, international als „Gaming Disorder“ anerkannt, ist eine spezifische Form der Verhaltenssucht. Sie ist gekennzeichnet durch persistentes oder wiederkehrendes Spielverhalten, das die Kontrolle über Dauer, Intensität und Priorisierung des Spielens verliert. Das Spielen erhält Vorrang vor anderen Lebensbereichen, und negative Konsequenzen führen nicht zu Verhaltensänderungen.
-Moderne Spiele nutzen komplexe Belohnungssysteme: Fortschrittsmechaniken, Ranglisten, soziale Anerkennung in Online-Communities sowie intermittierende Verstärkung. Diese Strukturen fördern ein hohes Maß an Immersion und können Realitätsflucht begünstigen. Neurobiologisch zeigen sich ähnliche Aktivierungsmuster wie bei substanzgebundenen Süchten.
-Folgen betreffen vor allem psychosoziale Bereiche: Schulversagen, Leistungsabfall, Tag-Nacht-Rhythmus-Störungen, körperliche Inaktivität und soziale Isolation. Emotional können Reizbarkeit, Frustrationstoleranzprobleme und depressive Symptome auftreten.
-Die Therapie fokussiert auf Verhaltensmodifikation, Zeitmanagement, Emotionsregulation und die Bearbeitung zugrunde liegender Problembereiche wie soziale Ängste oder Leistungsdruck.</p></section>
-<section id="kaufsucht"><h2>Kaufsucht</h2><p class="subtitle">Kaufsucht ist eine nicht-substanzgebundene Abhängigkeit, bei der ein zwanghaftes Kaufverhalten im Vordergrund steht. Die Handlung dient nicht dem Bedarf, sondern der kurzfristigen Stimmungsregulation. Der Kaufakt selbst erzeugt Erleichterung, Euphorie oder Spannungsreduktion, gefolgt von Schuldgefühlen.
-Neurobiologisch aktiviert der Kaufprozess Belohnungszentren ähnlich wie andere Suchthandlungen. Psychologisch ist Kaufsucht oft mit geringem Selbstwert, Impulsivität und emotionaler Dysregulation verbunden. Konsum wird zum Bewältigungsmechanismus für negative Gefühle.
-Typische Folgen sind Verschuldung, soziale Konflikte, Geheimhaltungsverhalten und zunehmende psychische Belastung. Therapeutisch wirksam sind verhaltenstherapeutische Strategien zur Impulskontrolle, Schuldenberatung und die Arbeit an emotionalen Auslösern.</p></section>
-<section id="glücksspielsucht"><h2>Glücksspielsucht</h2>Pathologisches Glücksspiel ist eine anerkannte psychische Störung mit starkem Suchtcharakter. Zentrales Merkmal ist das wiederholte Spielen trotz gravierender negativer Konsequenzen. Besonders suchterzeugend wirken schnelle Spielabfolgen, variable Gewinnquoten und sogenannte „Beinahe-Gewinne“, die das Belohnungssystem aktivieren.
-Kognitive Verzerrungen spielen eine große Rolle, etwa die Illusion von Kontrolle oder Fehlinterpretationen von Zufallsereignissen. Betroffene geraten häufig in einen Kreislauf aus Verlusten, erneuten Spieleinsätzen zur „Rückgewinnung“ und zunehmender Verschuldung.
-Folgen sind finanzielle Notlagen, Beziehungsabbrüche, Depressionen und erhöhtes Suizidrisiko. Therapie umfasst kognitive Umstrukturierung, Schuldenmanagement und Rückfallprävention.<p class="subtitle"></p></section>
-<section id="entstehung"><h2>Entstehung von Sucht</h2><p class="subtitle">Sucht entsteht durch ein multifaktorielles Zusammenspiel biologischer, psychologischer und sozialer Faktoren (biopsychosoziales Modell). Genetische Prädispositionen beeinflussen die Empfindlichkeit des Belohnungssystems. Frühkindliche Belastungen, Traumata oder unsichere Bindungsmuster erhöhen die Vulnerabilität.
-Psychologisch spielen Emotionsregulationsdefizite, Impulsivität und maladaptive Bewältigungsstrategien eine zentrale Rolle. Sozial wirken Verfügbarkeit von Suchtmitteln, Gruppennormen, Stressbelastung und sozioökonomische Faktoren.
-Durch wiederholte Verstärkung entwickelt sich ein Lernprozess, bei dem das Suchtverhalten automatisiert wird. Gleichzeitig schwächen neuroadaptive Veränderungen Kontrollmechanismen. Sucht ist daher weniger Ausdruck fehlender Willenskraft als Resultat tiefgreifender neuropsychologischer Anpassungsprozesse.</p></section>
-<section id="hilfe"><h2>Moderne Wege der Suchttherapie: Von klassischen Verfahren bis zur VR-Integration
-</h2><p class="subtitle">Die erfolgreiche Behandlung von Suchterkrankungen basiert heute auf einem integrativen Ansatz, der verschiedene therapeutische Disziplinen miteinander verknüpft. Ziel ist es, Betroffenen nicht nur den Entzug zu ermöglichen, sondern langfristige Strategien zur Rückfallprävention zu etablieren.
-Eine fundamentale Rolle spielt die Kognitive Verhaltenstherapie (KVT). Hierbei arbeiten Patienten daran, dysfunktionale Denkmuster und Verhaltensweisen zu identifizieren, die den Suchtmittelkonsum aufrechterhalten. Ergänzt wird dies häufig durch die Systemische Therapie, die das soziale Umfeld und die familiären Dynamiken in den Heilungsprozess einbezieht, um stabilisierende Strukturen im Alltag zu schaffen. Auch die Tiefenpsychologisch fundierte Psychotherapie kommt zum Einsatz, um unbewusste Konflikte oder traumatische Erlebnisse aufzuarbeiten, die oft die Wurzel einer Abhängigkeit bilden.
-Einen innovativen Sprung in der Behandlung stellt die Virtual Reality Expositionstherapie (VRET) dar. Mithilfe von professionellen Virtual Reality Forschungssystemen können hochspezifische Szenarien generiert werden, die den Patienten in der virtuellen Welt kontrolliert mit Reizen konfrontieren (Cue Exposure). Ziel ist die klinische Löschung des Suchtverlangens (Craving). Die Kombination dieser VR-Erfahrung mit Biofeedback-Verfahren erlaubt es, körperliche Stressreaktionen in Echtzeit zu messen und die Intensität der Therapie individuell zu steuern.
-Zusätzlich gewinnen Achtsamkeitsbasierte Rückfallprävention (MBRP) und motivierende Gesprächsführung an Bedeutung. Diese Ansätze helfen dabei, die Impulskontrolle zu stärken und die Eigenmotivation zu festigen. Durch die Vernetzung dieser klassischen Therapien mit modernster Technik entsteht ein präzises, wissenschaftlich fundiertes Gesamtbild des Behandlungserfolgs. Weitere Details zur empirischen Evidenz dieser kombinierten Ansätze bietet die Forschung zur digitalen Suchttherapie.</p></section>
+    function getNatureResponse(impact) {
+      if (impact.biodiversity >= 2 && impact.pressure <= 0) {
+        return "Naturreaktion: Lebensräume vernetzen sich besser, empfindliche Arten finden wieder geeignete Bedingungen.";
+      }
+      if (impact.biodiversity <= -2 || impact.pressure >= 2) {
+        return "Naturreaktion: Das Ökosystem gerät unter Stress; Artenvielfalt sinkt und Nahrungsketten werden instabiler.";
+      }
+      return "Naturreaktion: Das System bleibt belastet, zeigt aber je nach weiteren Entscheidungen noch Entwicklungsspielraum.";
+    }
 
-</main>
-<footer>
-© Darian Müller & Parzival Namsoongnein<br>
-Diese Inhalte ersetzen keine ärztliche Untersuchung oder medizinische Beratung.
-</footer>
+    let stepIndex = 0;
+    let storyState = { biodiversity: 0, pressure: 0, sustainability: 0, choices: [] };
 
-<script>
-// Theme
-document.body.setAttribute("data-theme", localStorage.getItem("theme")||"dark");
-function toggleTheme(){
-  const t=document.body.getAttribute("data-theme")==="dark"?"light":"dark";
-  document.body.setAttribute("data-theme",t);
-  localStorage.setItem("theme",t);
-}
+    function renderStep() {
+      const step = storySteps[stepIndex];
+      document.getElementById("storyProgress").textContent = `Frage ${stepIndex + 1} von ${storySteps.length}`;
+      document.getElementById("storyTitle").textContent = step.title;
+      document.getElementById("storyText").textContent = step.text;
 
-// Hamburger
-function toggleMenu(){document.getElementById("mainNav").classList.toggle("active");}
+      const container = document.getElementById("storyOptions");
+      container.innerHTML = "";
+      document.getElementById("storySummary").style.display = "none";
+      if (stepIndex === 0) document.getElementById("natureResponse").textContent = "Naturreaktion: Noch offen – triff die erste menschliche Entscheidung.";
 
-// Navigation
-function showPage(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  if(document.getElementById("mainNav").classList.contains("active")) toggleMenu();
-  window.scrollTo(0,0);
-}
+      step.options.forEach((option, optionIndex) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = `${String.fromCharCode(65 + optionIndex)}) ${option.label}`;
+        btn.onclick = () => chooseOption(option);
+        container.appendChild(btn);
+      });
+    }
 
-// Test Slider + Score
-const sliders=[q1,q2,q3];
-sliders.forEach((s,i)=>{
-  s.addEventListener("input",()=>{
-    document.getElementById("v"+(i+1)).textContent=s.value;
-    updateScore();
-  });
-});
+    function chooseOption(option) {
+      storyState.biodiversity += option.impact.biodiversity;
+      storyState.pressure += option.impact.pressure;
+      storyState.sustainability += option.impact.sustainability;
+      storyState.choices.push(option.label);
+      document.getElementById("natureResponse").textContent = getNatureResponse(option.impact);
 
-function updateScore(){
-  const total=+q1.value + +q2.value + +q3.value;
-  const r=document.getElementById("result");
-  const ring=document.getElementById("progress-ring");
-  const circumference=2*Math.PI*45;
-  let offset=circumference-(total/30)*circumference;
-  ring.style.strokeDashoffset=offset;
+      stepIndex += 1;
+      if (stepIndex < storySteps.length) {
+        renderStep();
+      } else {
+        renderSummary();
+      }
+    }
 
-  if(+q3.value>0){ // Sofort Hochwarnung
-    r.textContent="Hohes Risiko: Bitte suche Hilfe."; r.style.color="#f472b6"; ring.style.stroke="red";
-  } else {
-    if(total<10){r.textContent="Unauffällig."; r.style.color="green"; ring.style.stroke="green";}
-    else if(total<22){r.textContent="Achtung: Erste Anzeichen."; r.style.color="orange"; ring.style.stroke="orange";}
-    else {r.textContent="Hohes Risiko: Bitte suche Hilfe."; r.style.color="#f472b6"; ring.style.stroke="red";}
-  }
-  r.style.display="block"; document.getElementById("scoreText").textContent=total;
-}
+    function renderSummary() {
+      document.getElementById("storyProgress").textContent = "Fertig! Deine Story-Zusammenfassung";
+      document.getElementById("storyTitle").textContent = "Auswertung deiner 8 Entscheidungen";
+      document.getElementById("storyText").textContent = "Hier siehst du, wie sich deine Auswahl auf das Ökosystem ausgewirkt hat.";
+      document.getElementById("storyOptions").innerHTML = "";
+      document.getElementById("natureResponse").textContent = "Naturreaktion: Gesamteffekt aus allen 8 menschlichen Entscheidungen ist in der Auswertung enthalten.";
 
-function evaluateTest(){updateScore();}
-window.addEventListener('scroll',()=>{document.querySelectorAll('section.active').forEach(sec=>{sec.style.transform=`translateY(${window.scrollY*0.03}px)`;});});
-</script>
+      const summary = document.getElementById("storySummary");
+      const bio = storyState.biodiversity;
+      const pressure = storyState.pressure;
+      const sustain = storyState.sustainability;
+
+      let outcome = "Dein Ökosystem ist teilweise stabil, braucht aber weitere Maßnahmen.";
+      if (bio >= 4 && pressure <= 1 && sustain >= 4) {
+        outcome = "Sehr gutes Ende: Das Ökosystem erholt sich deutlich und Arten kehren zurück.";
+      } else if (bio <= -2 || pressure >= 6 || sustain <= -2) {
+        outcome = "Kritisches Ende: Das Ökosystem ist stark belastet und droht zu kippen.";
+      }
+
+      const tips = [];
+      if (bio < 2) tips.push("Baue mehr Schutzräume und Biotopvernetzung in die Handlung ein.");
+      if (pressure > 2) tips.push("Reduziere Versiegelung und Schadstoffeinträge in den nächsten Szenen.");
+      if (sustain < 2) tips.push("Zeige langfristige Maßnahmen wie Renaturierung und Umweltbildung deutlicher.");
+      if (tips.length === 0) tips.push("Stark! Ergänze konkrete Zahlen/Beobachtungen für noch mehr wissenschaftliche Tiefe.");
+
+      summary.innerHTML = `<strong>${outcome}</strong><br><br>
+        <strong>Deine Entscheidungen:</strong><br>${storyState.choices.map((c, i) => `${i + 1}. ${c}`).join("<br>")}<br><br>
+        <strong>Verbesserungsvorschläge:</strong><br>- ${tips.join("<br>- ")}`;
+      summary.style.display = "block";
+    }
+
+    function resetStory() {
+      stepIndex = 0;
+      storyState = { biodiversity: 0, pressure: 0, sustainability: 0, choices: [] };
+      renderStep();
+    }
+
+    renderStep();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
