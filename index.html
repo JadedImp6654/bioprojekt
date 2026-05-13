@@ -138,8 +138,8 @@
       font-weight: 700;
     }
 
-    .story-step { display: none; margin-top: 16px; }
-    .story-step.active { display: block; }
+        .option-btn { text-align: left; width: 100%; min-height: 64px; }
+    .option-btn:hover { border-color: var(--accent); }
 
     footer {
       border-top: 1px solid var(--border);
@@ -221,13 +221,15 @@
 
     <section id="comic">
       <h2>Interaktive Comic-Planung</h2>
-      <p class="subtitle">Klicke dich durch ein Beispiel-Storyboard. So kannst du dein eigenes kreatives Produkt strukturieren.</p>
+      <p class="subtitle">Entscheide selbst, wie deine Geschichte weitergeht. Du bekommst 8 Entscheidungen mit je 3 Optionen. Am Ende erhältst du eine Zusammenfassung mit Verbesserungstipps.</p>
       <div class="card">
-        <h3 id="storyTitle">Szene 1: Ausgangslage</h3>
-        <p id="storyText">Ein Bach am Ortsrand ist artenreich: Insekten, Amphibien und Uferpflanzen bilden ein stabiles Nahrungsnetz.</p>
+        <p id="storyProgress" class="subtitle" style="margin-bottom:8px;">Frage 1 von 8</p>
+        <h3 id="storyTitle">Start deiner Geschichte</h3>
+        <p id="storyText">Du planst ein Comic über ein Ökosystem in deiner Region.</p>
+        <div id="storyOptions" class="grid" style="margin-top:14px;"></div>
+        <div id="storySummary" class="result" style="display:none;"></div>
         <div style="margin-top:14px; display:flex; gap:10px;">
-          <button onclick="prevStory()">← Zurück</button>
-          <button onclick="nextStory()">Weiter →</button>
+          <button onclick="resetStory()">Neu starten</button>
         </div>
       </div>
     </section>
@@ -283,41 +285,122 @@
       }
     }
 
-    const story = [
-      {
-        title: "Szene 1: Ausgangslage",
-        text: "Ein Bach am Ortsrand ist artenreich: Insekten, Amphibien und Uferpflanzen bilden ein stabiles Nahrungsnetz."
-      },
-      {
-        title: "Szene 2: Eingriff",
-        text: "Durch neue Straßen und Bebauung werden Flächen versiegelt. Regenwasser fließt schneller ab, der Bach erwärmt sich."
-      },
-      {
-        title: "Szene 3: Folgen",
-        text: "Empfindliche Arten verschwinden, Algen nehmen zu und die Wasserqualität sinkt – das Ökosystem gerät aus dem Gleichgewicht."
-      },
-      {
-        title: "Szene 4: Lösung",
-        text: "Renaturierung, weniger Schadstoffeintrag und neue Uferzonen verbessern die Bedingungen. Schrittweise kehren Arten zurück."
-      }
+    const storySteps = [
+      { key: "ort", title: "1) Wo spielt deine Geschichte?", text: "Wähle den Lebensraum für dein Comic.", options: [
+        {label: "Auenlandschaft am Fluss", impact: {biodiversity: 2, pressure: 0, sustainability: 1}},
+        {label: "Stadtrand mit viel Verkehr", impact: {biodiversity: -1, pressure: 2, sustainability: -1}},
+        {label: "Wald mit Landwirtschaft in der Nähe", impact: {biodiversity: 1, pressure: 1, sustainability: 0}}
+      ]},
+      { key: "eingriff", title: "2) Welcher Eingriff passiert zuerst?", text: "Setze den ersten Konflikt.", options: [
+        {label: "Flussbegradigung", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Neue Wohnsiedlung", impact: {biodiversity: -1, pressure: 2, sustainability: -1}},
+        {label: "Intensivere Landwirtschaft", impact: {biodiversity: -2, pressure: 1, sustainability: -1}}
+      ]},
+      { key: "reaktion", title: "3) Wie reagiert die Tierwelt?", text: "Wähle die direkte Folge.", options: [
+        {label: "Einige Arten wandern ab", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "Nahrungsnetz gerät stark aus dem Gleichgewicht", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Nur robuste Arten bleiben", impact: {biodiversity: -1, pressure: 1, sustainability: -1}}
+      ]},
+      { key: "menschen", title: "4) Wie handeln die Menschen?", text: "Entscheide über die erste Gegenmaßnahme.", options: [
+        {label: "Bürgerinitiative gründet sich", impact: {biodiversity: 1, pressure: -1, sustainability: 2}},
+        {label: "Es passiert erstmal nichts", impact: {biodiversity: -1, pressure: 1, sustainability: -1}},
+        {label: "Nur kurzfristige PR-Aktion", impact: {biodiversity: 0, pressure: 0, sustainability: -1}}
+      ]},
+      { key: "wasser", title: "5) Was geschieht mit der Wasserqualität?", text: "Zeige den nächsten Entwicklungsschritt.", options: [
+        {label: "Mehr Schadstoffe gelangen ins Wasser", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Werte bleiben kritisch, aber stabil", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "Filterstreifen verbessern die Lage", impact: {biodiversity: 1, pressure: -1, sustainability: 1}}
+      ]},
+      { key: "boden", title: "6) Entscheidung zur Bodennutzung", text: "Wie geht die Gemeinde weiter vor?", options: [
+        {label: "Mehr Versiegelung für Parkplätze", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Teilentsiegelung und Grünflächen", impact: {biodiversity: 2, pressure: -1, sustainability: 2}},
+        {label: "Unverändert lassen", impact: {biodiversity: -1, pressure: 0, sustainability: 0}}
+      ]},
+      { key: "bildung", title: "7) Rolle der Schule / Öffentlichkeit", text: "Wie wird Wissen genutzt?", options: [
+        {label: "Projektwoche mit Aufklärung", impact: {biodiversity: 1, pressure: -1, sustainability: 2}},
+        {label: "Nur ein kurzer Vortrag", impact: {biodiversity: 0, pressure: 0, sustainability: 0}},
+        {label: "Kein Bildungsangebot", impact: {biodiversity: -1, pressure: 1, sustainability: -1}}
+      ]},
+      { key: "finale", title: "8) Dein Ende", text: "Wähle das Abschlussbild deiner Story.", options: [
+        {label: "Renaturierter Lebensraum mit Rückkehr vieler Arten", impact: {biodiversity: 2, pressure: -2, sustainability: 2}},
+        {label: "Gemischtes Ende mit offenen Problemen", impact: {biodiversity: 0, pressure: 0, sustainability: 0}},
+        {label: "Ökosystem kippt, Rettung bleibt schwierig", impact: {biodiversity: -2, pressure: 2, sustainability: -2}}
+      ]}
     ];
 
-    let storyIndex = 0;
+    let stepIndex = 0;
+    let storyState = { biodiversity: 0, pressure: 0, sustainability: 0, choices: [] };
 
-    function renderStory() {
-      document.getElementById("storyTitle").textContent = story[storyIndex].title;
-      document.getElementById("storyText").textContent = story[storyIndex].text;
+    function renderStep() {
+      const step = storySteps[stepIndex];
+      document.getElementById("storyProgress").textContent = `Frage ${stepIndex + 1} von ${storySteps.length}`;
+      document.getElementById("storyTitle").textContent = step.title;
+      document.getElementById("storyText").textContent = step.text;
+
+      const container = document.getElementById("storyOptions");
+      container.innerHTML = "";
+      document.getElementById("storySummary").style.display = "none";
+
+      step.options.forEach((option, optionIndex) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = `${String.fromCharCode(65 + optionIndex)}) ${option.label}`;
+        btn.onclick = () => chooseOption(option);
+        container.appendChild(btn);
+      });
     }
 
-    function nextStory() {
-      storyIndex = (storyIndex + 1) % story.length;
-      renderStory();
+    function chooseOption(option) {
+      storyState.biodiversity += option.impact.biodiversity;
+      storyState.pressure += option.impact.pressure;
+      storyState.sustainability += option.impact.sustainability;
+      storyState.choices.push(option.label);
+
+      stepIndex += 1;
+      if (stepIndex < storySteps.length) {
+        renderStep();
+      } else {
+        renderSummary();
+      }
     }
 
-    function prevStory() {
-      storyIndex = (storyIndex - 1 + story.length) % story.length;
-      renderStory();
+    function renderSummary() {
+      document.getElementById("storyProgress").textContent = "Fertig! Deine Story-Zusammenfassung";
+      document.getElementById("storyTitle").textContent = "Auswertung deiner 8 Entscheidungen";
+      document.getElementById("storyText").textContent = "Hier siehst du, wie sich deine Auswahl auf das Ökosystem ausgewirkt hat.";
+      document.getElementById("storyOptions").innerHTML = "";
+
+      const summary = document.getElementById("storySummary");
+      const bio = storyState.biodiversity;
+      const pressure = storyState.pressure;
+      const sustain = storyState.sustainability;
+
+      let outcome = "Dein Ökosystem ist teilweise stabil, braucht aber weitere Maßnahmen.";
+      if (bio >= 4 && pressure <= 1 && sustain >= 4) {
+        outcome = "Sehr gutes Ende: Das Ökosystem erholt sich deutlich und Arten kehren zurück.";
+      } else if (bio <= -2 || pressure >= 6 || sustain <= -2) {
+        outcome = "Kritisches Ende: Das Ökosystem ist stark belastet und droht zu kippen.";
+      }
+
+      const tips = [];
+      if (bio < 2) tips.push("Baue mehr Schutzräume und Biotopvernetzung in die Handlung ein.");
+      if (pressure > 2) tips.push("Reduziere Versiegelung und Schadstoffeinträge in den nächsten Szenen.");
+      if (sustain < 2) tips.push("Zeige langfristige Maßnahmen wie Renaturierung und Umweltbildung deutlicher.");
+      if (tips.length === 0) tips.push("Stark! Ergänze konkrete Zahlen/Beobachtungen für noch mehr wissenschaftliche Tiefe.");
+
+      summary.innerHTML = `<strong>${outcome}</strong><br><br>
+        <strong>Deine Entscheidungen:</strong><br>${storyState.choices.map((c, i) => `${i + 1}. ${c}`).join("<br>")}<br><br>
+        <strong>Verbesserungsvorschläge:</strong><br>- ${tips.join("<br>- ")}`;
+      summary.style.display = "block";
     }
+
+    function resetStory() {
+      stepIndex = 0;
+      storyState = { biodiversity: 0, pressure: 0, sustainability: 0, choices: [] };
+      renderStep();
+    }
+
+    renderStep();
   </script>
 </body>
 </html>
