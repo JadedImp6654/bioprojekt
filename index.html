@@ -171,30 +171,19 @@
   <main class="container">
     <section id="start" class="active">
       <h2>Arbeitsauftrag: Kreativaufgabe Ökologie</h2>
-      <p class="subtitle">Diese Website wurde passend zum Dokument umgestellt: Thema ist nun <strong>„Ökosysteme unter dem Einfluss des Menschen“</strong>. Du kannst Inhalte lernen, interaktiv Entscheidungen treffen und daraus direkt eine kreative Umsetzung (z. B. Comic, Hörbuch oder Kurzfilm-Idee) entwickeln.</p>
-      <div class="grid">
-        <article class="card">
-          <h3>Dein Ziel</h3>
-          <p>Wähle einen ökologischen Aspekt (z. B. Flussbegradigung, Landwirtschaft, Renaturierung, Zersiedelung) und stelle Folgen + Lösungen kreativ dar.</p>
-        </article>
-        <article class="card">
-          <h3>Aus dem Lehrplan</h3>
-          <ul>
-            <li>Veränderung von Ökosystemen im Lauf der Zeit</li>
-            <li>Eingriffe des Menschen beurteilen</li>
-            <li>Nachhaltige Handlungsoptionen begründen</li>
-          </ul>
-        </article>
+      <p class="subtitle">Im Zentrum dieser Website steht der Lernbereich <strong>„Ökosysteme unter dem Einfluss des Menschen“</strong>. Ziel ist es, ökologische Zusammenhänge nicht nur zu beschreiben, sondern sie als dynamische Prozesse zu verstehen: Eingriffe in Wasserhaushalt, Bodenstruktur oder Artenzusammensetzung wirken meist nicht isoliert, sondern lösen Kettenreaktionen aus. Genau diese Wechselwirkungen sollen hier fachlich fundiert nachvollzogen und kreativ aufbereitet werden.</p>
+      <div class="card">
+        <h3>Fachlicher Fokus und Arbeitsziel</h3>
+        <p>Du entwickelst auf Grundlage biologischer Fachinhalte ein eigenes Produkt – zum Beispiel einen Comic, ein Hörbuchskript oder ein kurzes Storyboard für einen Film. Entscheidend ist, dass dein Produkt einen realistischen menschlichen Eingriff in ein Ökosystem zeigt, die ökologischen Folgen nachvollziehbar darstellt und am Ende begründete Handlungsoptionen für eine nachhaltigere Entwicklung anbietet. Die Seite unterstützt dich dabei mit einem inhaltlichen Überblick, einer Simulation und einem interaktiven Entscheidungsformat, das Ursache-Wirkungs-Beziehungen sichtbar macht.</p>
       </div>
     </section>
 
     <section id="wissen">
-      <h2>Kurz-Wissen für die Kreativaufgabe</h2>
-      <p class="subtitle">Nutze diese Begriffe als Grundlage für dein Produkt:</p>
-      <div class="grid">
-        <article class="card"><h3>Sukzession</h3><p>Ein Ökosystem verändert sich über längere Zeit von Pionierarten bis zu stabileren Lebensgemeinschaften.</p></article>
-        <article class="card"><h3>Menschlicher Eingriff</h3><p>Beispiele: Landwirtschaft, Forstwirtschaft, Flussregulierung, Versiegelung, Verkehr, Müll, Pestizide.</p></article>
-        <article class="card"><h3>Nachhaltige Entwicklung</h3><p>Ökologie, Ökonomie und Soziales sollen gleichzeitig langfristig tragfähig bleiben.</p></article>
+      <h2>Fachwissen: Ökosysteme im Wandel</h2>
+      <p class="subtitle">Ökosysteme sind funktionale Netzwerke aus Lebensraum (Biotop) und Lebensgemeinschaft (Biozönose). Ihre Stabilität hängt davon ab, wie gut Stoffkreisläufe, Energiefluss und Artenbeziehungen zusammenspielen. Wird in dieses System eingegriffen – etwa durch Flächenversiegelung, Gewässerausbau, intensive Landwirtschaft oder Schadstoffeinträge –, verändern sich abiotische Faktoren wie Temperatur, Licht, Wasserverfügbarkeit und Nährstoffgehalte. Daraus folgen häufig Verschiebungen in der Artenzusammensetzung: empfindliche Arten gehen zurück, robuste Generalisten nehmen zu. Langfristig kann dadurch Biodiversität verloren gehen und die Resilienz des Systems sinken.</p>
+      <div class="card" style="margin-top: 14px;">
+        <h3>Bewerten und begründen wie in der Biologie</h3>
+        <p>Für eine fundierte Bewertung reicht eine reine Beschreibung („es wird schlechter“) nicht aus. Fachlich überzeugend ist eine Begründung entlang von Ursache und Wirkung: <em>Welche menschliche Maßnahme wurde durchgeführt?</em> – <em>Welche unmittelbaren Veränderungen im Lebensraum treten auf?</em> – <em>Welche kurz- und langfristigen Folgen ergeben sich für Arten, Nahrungsnetze und Stoffkreisläufe?</em> Erst auf dieser Basis lassen sich nachhaltige Alternativen ableiten, etwa Renaturierung, Entsiegelung, Pufferstreifen, reduzierte Schadstoffeinträge oder Bildungsmaßnahmen. Genau dieses Denken trainierst du mit den interaktiven Bereichen dieser Seite.</p>
       </div>
     </section>
 
@@ -227,6 +216,7 @@
         <h3 id="storyTitle">Start deiner Geschichte</h3>
         <p id="storyText">Du planst ein Comic über ein Ökosystem in deiner Region.</p>
         <div id="storyOptions" class="grid" style="margin-top:14px;"></div>
+        <p id="natureResponse" class="subtitle" style="margin-top:14px;"></p>
         <div id="storySummary" class="result" style="display:none;"></div>
         <div style="margin-top:14px; display:flex; gap:10px;">
           <button onclick="resetStory()">Neu starten</button>
@@ -286,47 +276,57 @@
     }
 
     const storySteps = [
-      { key: "ort", title: "1) Wo spielt deine Geschichte?", text: "Wähle den Lebensraum für dein Comic.", options: [
-        {label: "Auenlandschaft am Fluss", impact: {biodiversity: 2, pressure: 0, sustainability: 1}},
-        {label: "Stadtrand mit viel Verkehr", impact: {biodiversity: -1, pressure: 2, sustainability: -1}},
-        {label: "Wald mit Landwirtschaft in der Nähe", impact: {biodiversity: 1, pressure: 1, sustainability: 0}}
+      { key: "ort", title: "1) Welchen Raum wählt der Mensch als Entwicklungsfläche?", text: "Wähle den Ausgangsort für die Geschichte.", options: [
+        {label: "Bebauung nah am Flussufer", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Ausbau am bestehenden Siedlungsrand", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "Flächensparende Nachverdichtung", impact: {biodiversity: 1, pressure: -1, sustainability: 2}}
       ]},
-      { key: "eingriff", title: "2) Welcher Eingriff passiert zuerst?", text: "Setze den ersten Konflikt.", options: [
-        {label: "Flussbegradigung", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
-        {label: "Neue Wohnsiedlung", impact: {biodiversity: -1, pressure: 2, sustainability: -1}},
-        {label: "Intensivere Landwirtschaft", impact: {biodiversity: -2, pressure: 1, sustainability: -1}}
+      { key: "wasserbau", title: "2) Welche Maßnahme am Gewässer setzt der Mensch um?", text: "Entscheide über den Eingriff in den Wasserlauf.", options: [
+        {label: "Flussbegradigung für schnelleren Abfluss", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Teilweise Uferbefestigung", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "Naturnahe Ufergestaltung", impact: {biodiversity: 2, pressure: -1, sustainability: 2}}
       ]},
-      { key: "reaktion", title: "3) Wie reagiert die Tierwelt?", text: "Wähle die direkte Folge.", options: [
-        {label: "Einige Arten wandern ab", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
-        {label: "Nahrungsnetz gerät stark aus dem Gleichgewicht", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
-        {label: "Nur robuste Arten bleiben", impact: {biodiversity: -1, pressure: 1, sustainability: -1}}
+      { key: "landnutzung", title: "3) Wie betreibt der Mensch Landwirtschaft?", text: "Wähle die Form der Nutzung.", options: [
+        {label: "Intensiv mit hohem Pestizideinsatz", impact: {biodiversity: -2, pressure: 2, sustainability: -2}},
+        {label: "Konventionell mit reduzierten Mitteln", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "Ökologisch mit Blühstreifen", impact: {biodiversity: 2, pressure: -1, sustainability: 2}}
       ]},
-      { key: "menschen", title: "4) Wie handeln die Menschen?", text: "Entscheide über die erste Gegenmaßnahme.", options: [
-        {label: "Bürgerinitiative gründet sich", impact: {biodiversity: 1, pressure: -1, sustainability: 2}},
-        {label: "Es passiert erstmal nichts", impact: {biodiversity: -1, pressure: 1, sustainability: -1}},
-        {label: "Nur kurzfristige PR-Aktion", impact: {biodiversity: 0, pressure: 0, sustainability: -1}}
+      { key: "verkehr", title: "4) Welche Verkehrsentscheidung trifft die Gemeinde?", text: "Lege den nächsten menschlichen Eingriff fest.", options: [
+        {label: "Neue Umgehungsstraße durch Grünraum", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Bestehende Straßen erweitern", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
+        {label: "ÖPNV und Radwege priorisieren", impact: {biodiversity: 1, pressure: -1, sustainability: 2}}
       ]},
-      { key: "wasser", title: "5) Was geschieht mit der Wasserqualität?", text: "Zeige den nächsten Entwicklungsschritt.", options: [
-        {label: "Mehr Schadstoffe gelangen ins Wasser", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
-        {label: "Werte bleiben kritisch, aber stabil", impact: {biodiversity: -1, pressure: 1, sustainability: 0}},
-        {label: "Filterstreifen verbessern die Lage", impact: {biodiversity: 1, pressure: -1, sustainability: 1}}
+      { key: "siedlung", title: "5) Was passiert mit versiegelten Flächen?", text: "Wähle den Umgang mit Bodenflächen.", options: [
+        {label: "Weitere Parkflächen versiegeln", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
+        {label: "Status quo beibehalten", impact: {biodiversity: -1, pressure: 0, sustainability: 0}},
+        {label: "Teilentsiegeln und begrünen", impact: {biodiversity: 2, pressure: -1, sustainability: 2}}
       ]},
-      { key: "boden", title: "6) Entscheidung zur Bodennutzung", text: "Wie geht die Gemeinde weiter vor?", options: [
-        {label: "Mehr Versiegelung für Parkplätze", impact: {biodiversity: -2, pressure: 2, sustainability: -1}},
-        {label: "Teilentsiegelung und Grünflächen", impact: {biodiversity: 2, pressure: -1, sustainability: 2}},
-        {label: "Unverändert lassen", impact: {biodiversity: -1, pressure: 0, sustainability: 0}}
+      { key: "wasser", title: "6) Wie kontrolliert der Mensch Schadstoffeinträge?", text: "Entscheide über konkrete Schutzmaßnahmen.", options: [
+        {label: "Kaum Kontrollen", impact: {biodiversity: -2, pressure: 2, sustainability: -2}},
+        {label: "Regelmäßige Stichproben", impact: {biodiversity: 0, pressure: 0, sustainability: 1}},
+        {label: "Strenge Kontrollen + Pufferstreifen", impact: {biodiversity: 2, pressure: -2, sustainability: 2}}
       ]},
-      { key: "bildung", title: "7) Rolle der Schule / Öffentlichkeit", text: "Wie wird Wissen genutzt?", options: [
-        {label: "Projektwoche mit Aufklärung", impact: {biodiversity: 1, pressure: -1, sustainability: 2}},
-        {label: "Nur ein kurzer Vortrag", impact: {biodiversity: 0, pressure: 0, sustainability: 0}},
-        {label: "Kein Bildungsangebot", impact: {biodiversity: -1, pressure: 1, sustainability: -1}}
+      { key: "bildung", title: "7) Welche Rolle spielt Umweltbildung?", text: "Lege fest, wie stark die Bevölkerung eingebunden wird.", options: [
+        {label: "Keine Bildungsarbeit", impact: {biodiversity: -1, pressure: 1, sustainability: -2}},
+        {label: "Einmalige Infoveranstaltung", impact: {biodiversity: 0, pressure: 0, sustainability: 0}},
+        {label: "Dauerhafte Schul- und Bürgerprojekte", impact: {biodiversity: 1, pressure: -1, sustainability: 2}}
       ]},
-      { key: "finale", title: "8) Dein Ende", text: "Wähle das Abschlussbild deiner Story.", options: [
-        {label: "Renaturierter Lebensraum mit Rückkehr vieler Arten", impact: {biodiversity: 2, pressure: -2, sustainability: 2}},
-        {label: "Gemischtes Ende mit offenen Problemen", impact: {biodiversity: 0, pressure: 0, sustainability: 0}},
-        {label: "Ökosystem kippt, Rettung bleibt schwierig", impact: {biodiversity: -2, pressure: 2, sustainability: -2}}
+      { key: "abschluss", title: "8) Welche langfristige Strategie beschließt die Politik?", text: "Bestimme den Abschluss der menschlichen Entscheidungen.", options: [
+        {label: "Wirtschaft vor Ökologie", impact: {biodiversity: -2, pressure: 2, sustainability: -2}},
+        {label: "Kompromiss mit kleinen Schutzinseln", impact: {biodiversity: 0, pressure: 0, sustainability: 0}},
+        {label: "Verbindlicher Renaturierungsplan", impact: {biodiversity: 2, pressure: -2, sustainability: 3}}
       ]}
     ];
+
+    function getNatureResponse(impact) {
+      if (impact.biodiversity >= 2 && impact.pressure <= 0) {
+        return "Naturreaktion: Lebensräume vernetzen sich besser, empfindliche Arten finden wieder geeignete Bedingungen.";
+      }
+      if (impact.biodiversity <= -2 || impact.pressure >= 2) {
+        return "Naturreaktion: Das Ökosystem gerät unter Stress; Artenvielfalt sinkt und Nahrungsketten werden instabiler.";
+      }
+      return "Naturreaktion: Das System bleibt belastet, zeigt aber je nach weiteren Entscheidungen noch Entwicklungsspielraum.";
+    }
 
     let stepIndex = 0;
     let storyState = { biodiversity: 0, pressure: 0, sustainability: 0, choices: [] };
@@ -340,6 +340,7 @@
       const container = document.getElementById("storyOptions");
       container.innerHTML = "";
       document.getElementById("storySummary").style.display = "none";
+      if (stepIndex === 0) document.getElementById("natureResponse").textContent = "Naturreaktion: Noch offen – triff die erste menschliche Entscheidung.";
 
       step.options.forEach((option, optionIndex) => {
         const btn = document.createElement("button");
@@ -355,6 +356,7 @@
       storyState.pressure += option.impact.pressure;
       storyState.sustainability += option.impact.sustainability;
       storyState.choices.push(option.label);
+      document.getElementById("natureResponse").textContent = getNatureResponse(option.impact);
 
       stepIndex += 1;
       if (stepIndex < storySteps.length) {
@@ -369,6 +371,7 @@
       document.getElementById("storyTitle").textContent = "Auswertung deiner 8 Entscheidungen";
       document.getElementById("storyText").textContent = "Hier siehst du, wie sich deine Auswahl auf das Ökosystem ausgewirkt hat.";
       document.getElementById("storyOptions").innerHTML = "";
+      document.getElementById("natureResponse").textContent = "Naturreaktion: Gesamteffekt aus allen 8 menschlichen Entscheidungen ist in der Auswertung enthalten.";
 
       const summary = document.getElementById("storySummary");
       const bio = storyState.biodiversity;
